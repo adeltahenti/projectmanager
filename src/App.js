@@ -1,18 +1,57 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
+import $ from 'jquery';
+import axios from 'axios';
+import request from 'superagent';
 import Projects from './Components/Projects';
 import AddProject from './Components/AddPorject';
+import Todos from './Components/Todos';
 import './App.css';
 
 class App extends Component {
   constructor () {
     super();
     this.state = {
-      projects: []
+      projects: [],
+      todos: []
     }
   }
 
-  componentWillMount () {
+  // Get data with superagent module
+  getTodosSuperAgent() {
+    request.get('https://jsonplaceholder.typicode.com/todos')
+      .accept('json')
+      .then(response => this.setState({
+        todos: response.body
+      }))
+      .catch(err => console.log(err));
+  }
+
+  // Get data with axios module
+  getTodosAxios() {
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+      .then(response => this.setState({
+        todos: response.data
+      }))
+      .catch(err => console.log(err));
+  }
+
+  // Get data with jquery module
+  getTodos () {
+    $.ajax({
+      url: 'https://jsonplaceholder.typicode.com/todos',
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({todos: data});
+      }.bind(this),
+      error: (xhr, status, err) => {
+        console.log(err);
+      } 
+    });
+  }
+
+  getProjects() {
     this.setState({
       projects: [
         {
@@ -32,6 +71,19 @@ class App extends Component {
         }
       ]
     });
+  }
+
+  componentWillMount () {
+    this.getProjects();
+    // this.getTodos();
+    // this.getTodosAxios();
+    this.getTodosSuperAgent();
+  }
+
+  componentDidMount () {    
+    // this.getTodos();
+    // this.getTodosAxios();
+    this.getTodosSuperAgent();
   }
 
   handleAddProject (project) {
@@ -60,6 +112,8 @@ class App extends Component {
           <AddProject addProject={this.handleAddProject.bind(this)}/>   
           <hr/>
           <Projects onDelete={this.handleDeleteProject.bind(this)} projects={this.state.projects}/>
+          <hr/>
+          <Todos todos={this.state.todos}/>
         </div>
       </div>
     );
