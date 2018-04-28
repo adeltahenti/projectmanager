@@ -1,0 +1,40 @@
+/* label color */
+.input-field label {
+  color: rgb(219, 0, 208) !important;
+}
+
+.input-field label:active {
+  color: rgb(219, 0, 208) !important;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label,
+.input-field select:focus + label {
+  color: rgb(219, 0, 208) !important;
+}
+/* label underline focus color */
+.input-field input[type=text], .input-field input[type=text]:focus,input-field input[type=text]:active,
+.input-field select, .input-field select:focus,input-field select:active {
+  border-bottom: 1px solid rgb(219, 0, 208) !important;
+  box-shadow: 0 1px 0 0 rgb(219, 0, 208) !important;
+}
+/* valid color */
+.input-field input[type=text].valid,
+.input-field select.valid {
+  border-bottom: 1px solid rgb(219, 0, 208) !important;
+  box-shadow: 0 1px 0 0 rgb(219, 0, 208) !important;
+}
+/* invalid color */
+.input-field input[type=text].invalid,
+.input-field select.invalid {
+  border-bottom: 1px solid rgb(219, 0, 208) !important;
+  box-shadow: 0 1px 0 0 rgb(219, 0, 208) !important;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color:rgb(219, 0, 208) !important;
+}
+
+option.opt {
+  color: rgb(219, 0, 208) !important;
+}
+
