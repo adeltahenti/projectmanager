@@ -6,7 +6,6 @@ import request from 'superagent';
 import Projects from './Components/Projects';
 import AddProject from './Components/AddPorject';
 import Todos from './Components/Todos';
-import './App.css';
 
 class App extends Component {
   constructor () {
@@ -15,6 +14,16 @@ class App extends Component {
       projects: [],
       todos: []
     }
+  }
+
+  // Get data with vanilla javascript
+  getTodosFecth() {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(res => res.json())
+      .then(data => this.setState({
+        todos: data
+      }))
+      .catch(err => console.log(err));
   }
 
   // Get data with superagent module
@@ -77,13 +86,15 @@ class App extends Component {
     this.getProjects();
     // this.getTodos();
     // this.getTodosAxios();
-    this.getTodosSuperAgent();
+    // this.getTodosSuperAgent();
+    this.getTodosFecth();
   }
 
   componentDidMount () {    
     // this.getTodos();
     // this.getTodosAxios();
-    this.getTodosSuperAgent();
+    // this.getTodosSuperAgent();
+    this.getTodosFecth();
   }
 
   handleAddProject (project) {
